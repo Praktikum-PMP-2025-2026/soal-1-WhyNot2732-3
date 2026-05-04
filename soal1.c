@@ -3,7 +3,7 @@
  *   Hari dan Tanggal    : Senin, 4 Mei 2026
  *   Nama (NIM)          : R. Damar Prawiro Kusumo Sudradjat (13224109)
  *   Nama File           : soal1.c
- *   Deskripsi           : 
+ *   Deskripsi           : sistem menambah, mengurang, dan mencari gerbong dalam rangkaian kereta
  * 
  */
 
@@ -27,19 +27,23 @@ int main(){
     Node *head = NULL;
     Node *temp = NULL;
     Node *prev = NULL;
-    fgets(input, 100, stdin);
+    //fgets(input, 100, stdin);
+    if ((fgets(input, 100, stdin)) == NULL){
+        return -1;
+    }
+    
     tok = strtok(input, " ");
     N = atoi(tok);
-
-    for (int i = 0; i < N; i++)
-    {
+    //printf("%d", N);
+    for (int i = 0; i < N; i++){
         tok = strtok(NULL, " ");
         op = atoi(tok);
-        if (op == 1) // PUSH FRONT
-        {
+        //printf("%d", op);
+        if (op == 1){ // PUSH FRONT
             Node *newNode = (Node*)malloc(sizeof(Node));
             tok = strtok(NULL, " ");
             newNode->gerbong = atoi(tok);
+            //printf("%d", newNode->gerbong);
             if (isEmpty(head))
             {
                 head = newNode;
@@ -52,18 +56,18 @@ int main(){
             Node *newNode = (Node*)malloc(sizeof(Node));
             tok = strtok(NULL, " ");
             newNode->gerbong = atoi(tok);
-            if (isEmpty(head))
-            {
+            //printf("%d", newNode->gerbong);
+            if (isEmpty(head)){
                 head = newNode;
             }else{
                 temp = head;
-                while (temp != NULL){
+                while (temp->next != NULL){
                     temp = temp->next;
                 }
                 temp->next = newNode;
             }
             newNode->next = NULL;
-        } else if (op == 3){
+        } else if (op == 3){ //DELETE
             tok = strtok(NULL, " ");
             findId = atoi(tok);
             if (!isEmpty(head)){
@@ -82,7 +86,7 @@ int main(){
                     }
                 }   
             }
-        } else if (op == 4){
+        } else if (op == 4){ // FIND
             tok = strtok(NULL, " ");
             findId = atoi(tok);
             j = 0;
@@ -113,12 +117,16 @@ int main(){
         }
         printf("\n");
     }
-    
-
-
     return 0;
 }
 
 int isEmpty(Node *head){
-    return head == NULL;
+    return (head == NULL);
 }
+
+/*
+REFERENSI:
+https://www.geeksforgeeks.org/c/linked-list-in-c/
+https://www.geeksforgeeks.org/cpp/segmentation-fault-c-cpp/
+https://stackoverflow.com/questions/72004793/ignoring-return-value-of-fgets-in-c-chat-client-program
+*/
